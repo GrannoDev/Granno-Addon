@@ -6,60 +6,143 @@ local ACD = LibStub("AceConfigDialog-3.0")
 
 
 GrannoAddon.options = {
-    type = "group",
     name = "Granno Addon",
     handler = GrannoAddon,
+    type = "group",
+    childGroups = "tab",
     args = {
-        classBar = {
+        Reload = {
             order = 1,
-            type = "toggle",
-            name = "Hide ClassBar",
-            desc = "Hide ClassBar like Holy Power, Combo Points, etc. (Clicking will reload ui)",
-            get = function(info) return GrannoAddon.db.profile.classBar end,
-            set = function(info, value) GrannoAddon.db.profile.classBar = value end,
-        },
-        totemBar = {
-            order = 2,
-            type = "toggle",
-            name = "Hide TotemBar",
-            desc = "Hide TotemBar",
-            get = function(info) return GrannoAddon.db.profile.totemBar end,
-            set = function(info, value) GrannoAddon.db.profile.totemBar = value end,
-        },
-
-        darkness = {
-            order = 3,
-            type = "range",
-            name = "Darkness",
-            desc = "Determines how dark the ui is, GrannoAddon.db.profile.darkness is the darkest, 1 is the lightest",
-            get = function(info) return GrannoAddon.db.profile.darkness end,
-            set = function(info, value) GrannoAddon.db.profile.darkness = value end,
-            min = 0.1, max = 1, step = 0.1,
-        },
-        reload = {
-            order = 4,
             type = "execute",
             name = "Reload UI",
             desc = "Reloads the UI",
             func = function() ReloadUI() end
         },
-        hintOne = {
-            order = 5,
+        HintOne = {
+            order = 2,
             type = "description",
             name = "Hint: You need to reload the ui for the changes to take effect",
         },
-        hintTwo = {
-            order = 6,
+        HintTwo = {
+            order = 3,
             type = "description",
             name = "Hint: You can also use /granno to open the options menu",
         },
-    }
+        General = {
+            order = 1,
+            type = "group",
+            name = "General",
+            args = {
+                ClassBar = {
+                    order = 1,
+                    type = "toggle",
+                    name = "Hide ClassBar",
+                    desc = "Hide ClassBar like Holy Power, Combo Points, etc.",
+                    get = function(info) return GrannoAddon.db.profile.ClassBar end,
+                    set = function(info, value) GrannoAddon.db.profile.ClassBar = value end,
+                },
+                TotemBar = {
+                    order = 2,
+                    type = "toggle",
+                    name = "Hide TotemBar",
+                    desc = "Hide TotemBar",
+                    get = function(info) return GrannoAddon.db.profile.TotemBar end,
+                    set = function(info, value) GrannoAddon.db.profile.TotemBar = value end,
+                },
+
+
+                MicroAndBagBar = {
+                    order = 4,
+                    type = "toggle",
+                    name = "Hide Micro and BagBar",
+                    desc = "Hide Micro and BagBar",
+                    get = function(info) return GrannoAddon.db.profile.MicroAndBagBar end,
+                    set = function(info, value) GrannoAddon.db.profile.MicroAndBagBar = value end,
+                },
+                StanceBar = {
+                    order = 5,
+                    type = "toggle",
+                    name = "Hide StanceBar",
+                    desc = "Hide StanceBar",
+                    get = function(info) return GrannoAddon.db.profile.StanceBar end,
+                    set = function(info, value) GrannoAddon.db.profile.StanceBar = value end,
+                },
+                PetBar = {
+                    order = 6,
+                    type = "toggle",
+                    name = "Hide PetBar",
+                    desc = "Hide PetBar",
+                    get = function(info) return GrannoAddon.db.profile.PetBar end,
+                    set = function(info, value) GrannoAddon.db.profile.PetBar = value end,
+                },
+
+            }
+        },
+        Darkening = {
+            order = 2,
+            type = "group",
+            name = "Darkening",
+            args = {
+                Darkness = {
+                    order = 1,
+                    type = "range",
+                    name = "Darkness",
+                    desc = "Determines how dark the ui is, GrannoAddon.db.profile.Darkness is the darkest, 1 is the lightest",
+                    get = function(info) return GrannoAddon.db.profile.Darkness end,
+                    set = function(info, value) GrannoAddon.db.profile.Darkness = value end,
+                    min = 0.1, max = 1, step = 0.1,
+                },
+                DarkActionBars = {
+                    order = 2,
+                    type = "toggle",
+                    name = "Darken Action Bars",
+                    desc = "Determines if the action bars are darkened",
+                    get = function(info) return GrannoAddon.db.profile.DarkActionBars end,
+                    set = function(info, value) GrannoAddon.db.profile.DarkActionBars = value end,
+                },
+                DarkMinimap = {
+                    order = 3,
+                    type = "toggle",
+                    name = "Darken Minimap",
+                    desc = "Determines if the minimap is darkened",
+                    get = function(info) return GrannoAddon.db.profile.DarkMinimap end,
+                    set = function(info, value) GrannoAddon.db.profile.DarkMinimap = value end,
+                },
+                DarkFrames = {
+                    order = 4,
+                    type = "toggle",
+                    name = "Darken Frames",
+                    desc = "Determines if the frames are darkened",
+                    get = function(info) return GrannoAddon.db.profile.DarkFrames end,
+                    set = function(info, value) GrannoAddon.db.profile.DarkFrames = value end,
+                },
+                DarkRepAndExp = {
+                    order = 5,
+                    type = "toggle",
+                    name = "Darken Reputation and Experience",
+                    desc = "Determines if the reputation and experience bars are darkened",
+                    get = function(info) return GrannoAddon.db.profile.DarkRepAndExp end,
+                    set = function(info, value) GrannoAddon.db.profile.DarkRepAndExp = value end,
+
+                },
+            },
+        },
+
+    },
 }
+
 GrannoAddon.defaults = {
     profile = {
-        classBar = true,
-        totemBar = true,
-        darkness = 0.1,
+        ClassBar = true,
+        TotemBar = true,
+        Darkness = 0.1,
+        MicroAndBagBar = true,
+        StanceBar = false,
+        PetBar = false,
+        DarkActionBars = true,
+        DarkMinimap = true,
+        DarkFrames = true,
+        DarkRepAndExp = true,
     },
 }
 function GrannoAddon:OnInitialize()
@@ -78,11 +161,71 @@ function GrannoAddon:OnInitialize()
 end
 
 function GrannoAddon:loadConfig()
-    if GrannoAddon.db.profile.totemBar then
+
+    GrannoAddon:HideBagAndMicro()
+    GrannoAddon:HideStanceBar()
+    GrannoAddon:HideClassBar()
+    GrannoAddon:HidePetBar()
+
+    if GrannoAddon.db.profile.DarkActionBars then
+        GrannoAddon:DarkenActionBars()
+    end
+    if GrannoAddon.db.profile.DarkMinimap then
+        GrannoAddon:DarkenMinimap()
+    end
+    if GrannoAddon.db.profile.DarkFrames then
+        GrannoAddon:DarkenFrames()
+    end
+    if GrannoAddon.db.profile.DarkRepAndExp then
+        GrannoAddon:DarkenRepAndExp()
+    end
+
+    -- Quick Join Toast Button
+    QuickJoinToastButton:Hide()
+
+end
+
+function GrannoAddon:HideBagAndMicro()
+    if GrannoAddon.db.profile.MicroAndBagBar then
+        MicroButtonAndBagsBar:Hide()
+        MicroButtonAndBagsBar:HookScript("OnShow", function(self) self:Hide() end)
+    else
+        MicroButtonAndBagsBar:Show()
+    end
+
+end
+
+function GrannoAddon:HideStanceBar()
+    if GrannoAddon.db.profile.StanceBar then
+        StanceBar:Hide()
+        StanceBar:HookScript("OnShow", function(self) self:Hide() end)
+    else
+        StanceBar:Show()
+    end
+end
+
+function GrannoAddon:HideTotemBar()
+    if GrannoAddon.db.profile.TotemBar then
         TotemFrame:Hide()
         TotemFrame:HookScript("OnShow", function(self) self:Hide() end)
+    else
+        TotemFrame:Show()
     end
-    if self.db.profile.classBar then
+
+end
+
+function GrannoAddon:HidePetBar()
+    if GrannoAddon.db.profile.PetBar then
+        PetActionBar:Hide()
+        PetActionBar:HookScript("OnShow", function(self) self:Hide() end)
+    else
+        PetActionBar:Show()
+    end
+end
+
+function GrannoAddon:HideClassBar()
+    if GrannoAddon.db.profile.ClassBar then
+
         local _, Class = UnitClass("player")
 
         -- ROGUE
@@ -135,69 +278,28 @@ function GrannoAddon:loadConfig()
             MonkHarmonyBarFrame:HookScript("OnShow", function(self) self:Hide() end)
         end
 
-    end
-
-    -- StanceBar
-    for w = 1, 10 do
-        _G["StanceButton" .. w .. "NormalTexture"]:SetVertexColor(GrannoAddon.db.profile.darkness,
-            GrannoAddon.db.profile.darkness,
-            GrannoAddon.db.profile.darkness)
 
     end
+end
 
-    -- PET BAR
-    for h = 1, 10 do
-        _G["PetActionButton" .. h .. "NormalTexture"]:SetVertexColor(GrannoAddon.db.profile.darkness,
-            GrannoAddon.db.profile.darkness,
-            GrannoAddon.db.profile.darkness)
+function GrannoAddon:DarkenActionBars()
+    if not GrannoAddon.db.profile.StanceBar then
+        -- StanceBar
+        for w = 1, 10 do
+            _G["StanceButton" .. w .. "NormalTexture"]:SetVertexColor(GrannoAddon.db.profile.Darkness,
+                GrannoAddon.db.profile.Darkness,
+                GrannoAddon.db.profile.Darkness)
+
+        end
     end
-
-    -- FRAMES
-
-
-    -- Target
-    TargetFrame.TargetFrameContainer.FrameTexture:SetVertexColor(GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-    TargetFrame.TargetFrameContainer.FrameTexture:SetDesaturated(true)
-    TargetFrameToT.FrameTexture:SetVertexColor(GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-    TargetFrameToT.FrameTexture:SetDesaturated(true)
-
-
-    -- Focus
-    FocusFrame.TargetFrameContainer.FrameTexture:SetVertexColor(GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-    FocusFrame.TargetFrameContainer.FrameTexture:SetDesaturated(true)
-    FocusFrameToT.FrameTexture:SetVertexColor(GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-    FocusFrameToT.FrameTexture:SetDesaturated(true)
-
-    -- Player
-    PlayerFrame.PlayerFrameContainer.FrameTexture:SetVertexColor(GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-    PlayerFrame.PlayerFrameContainer.FrameTexture:SetDesaturated(true)
-
-    -- Pet
-    PetFrameTexture:SetVertexColor(GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-    PetFrameTexture:SetDesaturated(true)
-
-    -- Minimap
-    MinimapCompassTexture:SetVertexColor(GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-    MinimapCompassTexture:SetDesaturated(true)
-
-    -- Experience and Reputation Bar
-    StatusTrackingBarManager.TopBarFrameTexture:SetVertexColor(GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-    StatusTrackingBarManager.BottomBarFrameTexture:SetVertexColor(GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness,
-        GrannoAddon.db.profile.darkness)
-
+    if not GrannoAddon.db.profile.PetBar then
+        -- PET BAR
+        for h = 1, 10 do
+            _G["PetActionButton" .. h .. "NormalTexture"]:SetVertexColor(GrannoAddon.db.profile.Darkness,
+                GrannoAddon.db.profile.Darkness,
+                GrannoAddon.db.profile.Darkness)
+        end
+    end
 
     -- Bar Art
     MainMenuBar.EndCaps.RightEndCap:SetDesaturated(true)
@@ -218,34 +320,81 @@ function GrannoAddon:loadConfig()
         ActionButton10.RightDivider,
         ActionButton11.RightDivider,
     }) do
-        j:SetVertexColor(GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness,
-            GrannoAddon.db.profile.darkness)
+        j:SetVertexColor(GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness,
+            GrannoAddon.db.profile.Darkness)
     end
 
-
-    -- Quick Join Toast Button
-    QuickJoinToastButton:Hide()
 
     -- Action Bars
     for i = 1, 12 do
-        _G["ActionButton" .. i .. "NormalTexture"]:SetVertexColor(GrannoAddon.db.profile.darkness,
-            GrannoAddon.db.profile.darkness,
-            GrannoAddon.db.profile.darkness)
+        _G["ActionButton" .. i .. "NormalTexture"]:SetVertexColor(GrannoAddon.db.profile.Darkness,
+            GrannoAddon.db.profile.Darkness,
+            GrannoAddon.db.profile.Darkness)
         _G["MultiBarBottomRightButton" .. i .. "NormalTexture"]:SetVertexColor(
-            GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness)
+            GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness)
         _G["MultiBarBottomLeftButton" .. i .. "NormalTexture"]:SetVertexColor(
-            GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness)
+            GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness)
         _G["MultiBarLeftButton" .. i .. "NormalTexture"]:SetVertexColor(
-            GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness)
+            GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness)
         _G["MultiBarRightButton" .. i .. "NormalTexture"]:SetVertexColor(
-            GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness)
+            GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness)
         _G["MultiBar5Button" .. i .. "NormalTexture"]:SetVertexColor(
-            GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness)
+            GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness)
         _G["MultiBar6Button" .. i .. "NormalTexture"]:SetVertexColor(
-            GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness)
+            GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness)
         _G["MultiBar7Button" .. i .. "NormalTexture"]:SetVertexColor(
-            GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness, GrannoAddon.db.profile.darkness)
+            GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness)
     end
+end
+
+function GrannoAddon:DarkenMinimap()
+    -- Minimap
+    MinimapCompassTexture:SetVertexColor(GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+    MinimapCompassTexture:SetDesaturated(true)
+end
+
+function GrannoAddon:DarkenRepAndExp()
+    -- Experience and Reputation Bar
+    StatusTrackingBarManager.TopBarFrameTexture:SetVertexColor(GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+    StatusTrackingBarManager.BottomBarFrameTexture:SetVertexColor(GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+end
+
+function GrannoAddon:DarkenFrames()
+    -- Target
+    TargetFrame.TargetFrameContainer.FrameTexture:SetVertexColor(GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+    TargetFrame.TargetFrameContainer.FrameTexture:SetDesaturated(true)
+    TargetFrameToT.FrameTexture:SetVertexColor(GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+    TargetFrameToT.FrameTexture:SetDesaturated(true)
+
+
+    -- Focus
+    FocusFrame.TargetFrameContainer.FrameTexture:SetVertexColor(GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+    FocusFrame.TargetFrameContainer.FrameTexture:SetDesaturated(true)
+    FocusFrameToT.FrameTexture:SetVertexColor(GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+    FocusFrameToT.FrameTexture:SetDesaturated(true)
+
+    -- Player
+    PlayerFrame.PlayerFrameContainer.FrameTexture:SetVertexColor(GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+    PlayerFrame.PlayerFrameContainer.FrameTexture:SetDesaturated(true)
+
+    -- Pet
+    PetFrameTexture:SetVertexColor(GrannoAddon.db.profile.Darkness, GrannoAddon.db.profile.Darkness,
+        GrannoAddon.db.profile.Darkness)
+    PetFrameTexture:SetDesaturated(true)
+
 end
 
 function GrannoAddon:SlashCommand()

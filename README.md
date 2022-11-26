@@ -7,6 +7,11 @@ This is the repository for the Wow addon "Granno Addon"
 # Changelog
 
 
+## 1.1.5
+
+* Added more options and customization
+* Added hide bag and micro bar
+
 ## 1.1.0
 
 * Added options in the interface panel
