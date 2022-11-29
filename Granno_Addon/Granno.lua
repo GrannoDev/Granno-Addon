@@ -37,7 +37,7 @@ GrannoAddon.options = {
                     order = 1,
                     type = "toggle",
                     name = "Hide ClassBar",
-                    desc = "Hide ClassBar like Holy Power, Combo Points, etc.",
+                    desc = "Hides ClassBar like Holy Power, Combo Points, etc.",
                     get = function(info) return GrannoAddon.db.profile.ClassBar end,
                     set = function(info, value) GrannoAddon.db.profile.ClassBar = value end,
                 },
@@ -45,39 +45,55 @@ GrannoAddon.options = {
                     order = 2,
                     type = "toggle",
                     name = "Hide TotemBar",
-                    desc = "Hide TotemBar",
+                    desc = "Hides TotemBar",
                     get = function(info) return GrannoAddon.db.profile.TotemBar end,
                     set = function(info, value) GrannoAddon.db.profile.TotemBar = value end,
                 },
-
-
-                MicroAndBagBar = {
+                PlayerCastBarToggle = {
+                    order = 3,
+                    type = "toggle",
+                    name = "Hide Player CastBar",
+                    desc = "Hides Player CastBar",
+                    get = function(info) return GrannoAddon.db.profile.PlayerCastBarToggle end,
+                    set = function(info, value) GrannoAddon.db.profile.PlayerCastBarToggle = value end,
+                },
+                MicroButtonBar = {
                     order = 4,
                     type = "toggle",
-                    name = "Hide Micro and BagBar",
-                    desc = "Hide Micro and BagBar",
-                    get = function(info) return GrannoAddon.db.profile.MicroAndBagBar end,
-                    set = function(info, value) GrannoAddon.db.profile.MicroAndBagBar = value end,
+                    name = "Hide Micro ButtonBar",
+                    desc = "Hides Micro ButtonBar",
+                    get = function(info) return GrannoAddon.db.profile.MicroButtonBar end,
+                    set = function(info, value) GrannoAddon.db.profile.MicroButtonBar = value end,
                 },
-                StanceBar = {
+                BagBar = {
                     order = 5,
                     type = "toggle",
+                    name = "Hide BagBar",
+                    desc = "Hides BagBar",
+                    get = function(info) return GrannoAddon.db.profile.BagBar end,
+                    set = function(info, value) GrannoAddon.db.profile.BagBar = value end,
+                },
+
+                StanceBar = {
+                    order = 6,
+                    type = "toggle",
                     name = "Hide StanceBar",
-                    desc = "Hide StanceBar",
+                    desc = "Hides StanceBar",
                     get = function(info) return GrannoAddon.db.profile.StanceBar end,
                     set = function(info, value) GrannoAddon.db.profile.StanceBar = value end,
                 },
                 PetBar = {
-                    order = 6,
+                    order = 7,
                     type = "toggle",
                     name = "Hide PetBar",
-                    desc = "Hide PetBar",
+                    desc = "Hides PetBar",
                     get = function(info) return GrannoAddon.db.profile.PetBar end,
                     set = function(info, value) GrannoAddon.db.profile.PetBar = value end,
                 },
+            },
 
-            }
         },
+
         Darkening = {
             order = 2,
             type = "group",
@@ -87,7 +103,7 @@ GrannoAddon.options = {
                     order = 1,
                     type = "range",
                     name = "Darkness",
-                    desc = "Determines how dark the ui is, GrannoAddon.db.profile.Darkness is the darkest, 1 is the lightest",
+                    desc = "Determines how dark the ui is, 0.1 is the darkest, 1 is the lightest",
                     get = function(info) return GrannoAddon.db.profile.Darkness end,
                     set = function(info, value) GrannoAddon.db.profile.Darkness = value end,
                     min = 0.1, max = 1, step = 0.1,
@@ -136,13 +152,15 @@ GrannoAddon.defaults = {
         ClassBar = true,
         TotemBar = true,
         Darkness = 0.1,
-        MicroAndBagBar = true,
+        MicroButtonBar = false,
+        BagBar = false,
         StanceBar = false,
         PetBar = false,
         DarkActionBars = true,
         DarkMinimap = true,
         DarkFrames = true,
         DarkRepAndExp = true,
+        PlayerCastBarToggle = false,
     },
 }
 function GrannoAddon:OnInitialize()
@@ -162,10 +180,13 @@ end
 
 function GrannoAddon:loadConfig()
 
-    GrannoAddon:HideBagAndMicro()
+    GrannoAddon:HideMicroBar()
+    GrannoAddon:HideBagBar()
     GrannoAddon:HideStanceBar()
     GrannoAddon:HideClassBar()
     GrannoAddon:HidePetBar()
+    GrannoAddon:SetCastBar()
+
 
     if GrannoAddon.db.profile.DarkActionBars then
         GrannoAddon:DarkenActionBars()
@@ -185,14 +206,86 @@ function GrannoAddon:loadConfig()
 
 end
 
-function GrannoAddon:HideBagAndMicro()
-    if GrannoAddon.db.profile.MicroAndBagBar then
-        MicroButtonAndBagsBar:Hide()
-        MicroButtonAndBagsBar:HookScript("OnShow", function(self) self:Hide() end)
-    else
-        MicroButtonAndBagsBar:Show()
-    end
+function GrannoAddon:HideBagBar()
 
+    -- Add hook script
+    if GrannoAddon.db.profile.BagBar then
+        MainMenuBarBackpackButton:Hide()
+        MainMenuBarBackpackButton:HookScript("OnShow", function(self) self:Hide() end)
+        CharacterBag0Slot:Hide()
+        CharacterBag0Slot:HookScript("OnShow", function(self) self:Hide() end)
+        CharacterBag1Slot:Hide()
+        CharacterBag1Slot:HookScript("OnShow", function(self) self:Hide() end)
+        CharacterBag2Slot:Hide()
+        CharacterBag2Slot:HookScript("OnShow", function(self) self:Hide() end)
+        CharacterBag3Slot:Hide()
+        CharacterBag3Slot:HookScript("OnShow", function(self) self:Hide() end)
+        CharacterReagentBag0Slot:Hide()
+        CharacterReagentBag0Slot:HookScript("OnShow", function(self) self:Hide() end)
+        BagBarExpandToggle:Hide()
+        BagBarExpandToggle:HookScript("OnShow", function(self) self:Hide() end)
+    else
+        MainMenuBarBackpackButton:Show()
+        CharacterBag0Slot:Show()
+        CharacterBag1Slot:Show()
+        CharacterBag2Slot:Show()
+        CharacterBag3Slot:Show()
+        CharacterReagentBag0Slot:Show()
+        BagBarExpandToggle:Show()
+    end
+end
+
+function GrannoAddon:HideMicroBar()
+    if GrannoAddon.db.profile.MicroButtonBar then
+        MainMenuMicroButton:Hide()
+        MainMenuMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        CharacterMicroButton:Hide()
+        CharacterMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        SpellbookMicroButton:Hide()
+        SpellbookMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        TalentMicroButton:Hide()
+        TalentMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        AchievementMicroButton:Hide()
+        AchievementMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        QuestLogMicroButton:Hide()
+        QuestLogMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        GuildMicroButton:Hide()
+        GuildMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        LFDMicroButton:Hide()
+        LFDMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        CollectionsMicroButton:Hide()
+        CollectionsMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        EJMicroButton:Hide()
+        EJMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        StoreMicroButton:Hide()
+        StoreMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+        CollectionsMicroButton:Hide()
+        CollectionsMicroButton:HookScript("OnShow", function(self) self:Hide() end)
+    else
+        MainMenuMicroButton:Show()
+        CharacterMicroButton:Show()
+
+        SpellbookMicroButton:Show()
+
+        TalentMicroButton:Show()
+
+        AchievementMicroButton:Show()
+
+        QuestLogMicroButton:Show()
+
+        GuildMicroButton:Show()
+
+        LFDMicroButton:Show()
+
+        CollectionsMicroButton:Show()
+
+        EJMicroButton:Show()
+
+        StoreMicroButton:Show()
+
+        CollectionsMicroButton:Show()
+
+    end
 end
 
 function GrannoAddon:HideStanceBar()
@@ -224,10 +317,11 @@ function GrannoAddon:HidePetBar()
 end
 
 function GrannoAddon:HideClassBar()
+
+
+
     if GrannoAddon.db.profile.ClassBar then
-
         local _, Class = UnitClass("player")
-
         -- ROGUE
         if Class == "ROGUE" then
             ComboPointPlayerFrame:Hide()
@@ -247,38 +341,42 @@ function GrannoAddon:HideClassBar()
             PaladinPowerBarFrame:Hide()
             PaladinPowerBarFrame:HookScript("OnShow", function(self) self:Hide() end)
         end
-
         -- WARLOCK
         if Class == "WARLOCK" then
             WarlockPowerFrame:Hide()
             WarlockPowerFrame:HookScript("OnShow", function(self) self:Hide() end)
         end
-
         -- DEATH KNIGHT
         if Class == "DEATHKNIGHT" then
             RuneFrame:Hide()
             RuneFrame:HookScript("OnShow", function(self) self:Hide() end)
         end
-
         -- MAGE
         if Class == "MAGE" then
             MageArcaneChargesFrame:Hide()
             MageArcaneChargesFrame:HookScript("OnShow", function(self) self:Hide() end)
         end
-
         -- PRIEST
         if Class == "PRIEST" then
             PriestBarFrame:Hide()
             PriestBarFrame:HookScript("OnShow", function(self) self:Hide() end)
         end
-
         -- MONK
         if Class == "MONK" then
             MonkHarmonyBarFrame:Hide()
             MonkHarmonyBarFrame:HookScript("OnShow", function(self) self:Hide() end)
         end
 
+    end
+end
 
+function GrannoAddon:SetCastBar()
+    if GrannoAddon.db.profile.PlayerCastBarToggle then
+        PlayerCastingBarFrame:Hide()
+        PlayerCastingBarFrame:UnregisterAllEvents()
+    else
+        PlayerCastingBarFrame:Show()
+        PlayerCastingBarFrame:RegisterAllEvents()
     end
 end
 

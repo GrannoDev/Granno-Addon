@@ -6,6 +6,9 @@ This is the repository for the Wow addon "Granno Addon"
 
 # Changelog
 
+## 1.1.6
+
+* Added the ability to hide player cast bar
 
 ## 1.1.5
 
